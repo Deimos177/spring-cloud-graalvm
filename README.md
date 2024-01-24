@@ -3,7 +3,7 @@ This is a POC for using graalvm with spring cloud to deploy AOT spring apps on k
 More infos with be added in future. <br>
 
 # prerequisites
-Java jdk21 <br>
+Java jdk21 or above <br>
 mvn 3.9.6 or above <br>
 docker <br>
 minikube or another k8s local engine <br>
