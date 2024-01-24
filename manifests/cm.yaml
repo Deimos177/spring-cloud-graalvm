@@ -1,0 +1,15 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: graalvm-example
+data:
+  application.yml: |-
+    springdoc:
+      swagger-ui:
+        path: /swagger-ui.html
+    message: ${MESSAGE}
+    server:
+      servlet:
+        context-path: /hello
+    spring:
+      profiles: dev

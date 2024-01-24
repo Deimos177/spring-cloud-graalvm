@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2024-01-24T01:52:55Z"
+  labels:
+    app: graalvm-example
+  name: graalvm-example
+  namespace: default
+  resourceVersion: "3316"
+  uid: ac5b2985-00db-439a-98e2-e8fbd443e134
+spec:
+  clusterIP: 10.99.140.233
+  clusterIPs:
+  - 10.99.140.233
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: graalvm-example
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}
