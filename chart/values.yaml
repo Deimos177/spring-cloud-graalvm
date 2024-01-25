@@ -1,0 +1,66 @@
+replicaCount: 1
+image:
+  repository: marsdeimos/graalvm-connector
+  pullPolicy: IfNotPresent
+  tag: "1.0"
+imagePullSecrets: []
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+podAnnotations: {}
+service:
+  type: ClusterIP
+  port: 8080
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+resources:
+  requests:
+    cpu: 10m
+    memory: 128Mi
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 2
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+nodeSelector: {}
+tolerations: []
+affinity: {}
+network:
+  Apppath: /graalvm-connector
+properties:
+  application.yml: |-
+    spring:
+      application:
+        name: ${ APP_NAME }
+      jpa:
+        hibernate:
+          ddl-auto: update
+        show-sql: true
+      datasource:
+        url: ${DB_URL}
+        username: ${DB_USERNAME}
+        password: ${DB_PASSWORD}
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    springdoc:
+      swagger-ui:
+        path: /swagger-ui.html
+    server:
+      servlet:
+        context-path: /graalvm-connector
+    management:
+      endpoint:
+        health:
+          probes:
+            enabled: true

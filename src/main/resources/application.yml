@@ -1,12 +1,11 @@
 spring:
-  application:
-    name: graalvm-example
   cloud:
     kubernetes:
       config:
-        name: ${spring.application.name}
+        name: ${APP_NAME}
         namespace: default
-        enabled: true
       reload:
         strategy: refresh
         enabled: true
+    config:
+      enabled: true  
