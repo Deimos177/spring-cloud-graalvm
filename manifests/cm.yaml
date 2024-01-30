@@ -1,0 +1,32 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: graalvm-connector
+  namespace: study
+data:
+  application.yml: |-
+    spring:
+      application:
+        name: graalvm-connector
+      datasource:
+        password: ${DB_PASSWORD}
+        url: ${DB_URL}
+        username: ${DB_USER}
+      jpa:
+        generate-ddl: true
+        hibernate:
+          ddl-auto: update
+        show-sql: true
+      profiles:
+        active: kubernetes
+    springdoc:
+      swagger-ui:
+        path: /swagger-ui.html
+    server:
+      servlet:
+        context-path: /graalvm-connector
+    management:
+      endpoint:
+        health:
+          probes:
+            enabled: true

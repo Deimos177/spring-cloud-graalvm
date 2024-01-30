@@ -21,11 +21,7 @@ spec:
       labels:
         app: {{ .Release.Name }}
     spec:
-      {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      serviceAccountName: {{ include "chart.serviceAccountName" . }}
+      serviceAccountName: {{ .Release.Name }}
       containers:
         - name: {{ .Release.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.version | default .Chart.AppVersion }}"
@@ -34,6 +30,10 @@ spec:
             - name: http
               containerPort: 8080
               protocol: TCP
+          env:
+            - name: APP_NAME
+              value: {{ .Release.Name }}
+            {{- toYaml .Values.env | nindent 12 }}
           livenessProbe:
             httpGet:
               path: {{ .Values.network.Apppath}}/actuator/health/liveness

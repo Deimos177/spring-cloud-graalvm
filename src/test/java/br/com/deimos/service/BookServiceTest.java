@@ -33,7 +33,7 @@ import br.com.deimos.repository.BookRepository;
 @ActiveProfiles("test")
 @DataJpaTest(showSql = true)
 @TestMethodOrder(OrderAnnotation.class)
-public class BookServiceTest {
+class BookServiceTest {
 
 	@InjectMocks
 	BookService service;
@@ -50,10 +50,10 @@ public class BookServiceTest {
 		MockitoAnnotations.openMocks(this);
 	}
 
-	@Test
-	@DisplayName("Create book test")
-	@Order(1)
-	public void when_save_user_it_should_return_user() {
+    @Test
+    @DisplayName("Create book test")
+    @Order(1)
+    void when_save_user_it_should_return_user() {
 		request = new BookDTO(null, "Test book", "Just some description",
 				LocalDate.parse("25.07.2020", DateTimeFormatter.ofPattern("dd.MM.yyyy")));
 		BeanUtils.copyProperties(request, expectedSavedBook);
@@ -73,10 +73,10 @@ public class BookServiceTest {
 
 	}
 
-	@Test
-	@DisplayName("Return error due to large string test")
-	@Order(2)
-	public void should_return_error_due_to_too_large_string() {
+    @Test
+    @DisplayName("Return error due to large string test")
+    @Order(2)
+    void should_return_error_due_to_too_large_string() {
 		request = new BookDTO(null, "Test book",
 				"quam nulla porttitor massa id neque aliquam vestibulum morbi blandit cursus risus at ultrices mi tempus imperdiet nullaa",
 				LocalDate.parse("25-07-2020", DateTimeFormatter.ofPattern("dd-MM-yyyy")));
@@ -92,10 +92,10 @@ public class BookServiceTest {
 		assertThat(created.getBody()).isEqualTo("Error, description is too long");
 	}
 
-	@Test
-	@DisplayName("Return error due to empty name")
-	@Order(3)
-	public void should_return_error_due_to_empty_name() {
+    @Test
+    @DisplayName("Return error due to empty name")
+    @Order(3)
+    void should_return_error_due_to_empty_name() {
 		request = new BookDTO(null, "", "Just some description",
 				LocalDate.parse("25-07-2020", DateTimeFormatter.ofPattern("dd-MM-yyyy")));
 		BeanUtils.copyProperties(request, expectedSavedBook);
@@ -110,10 +110,10 @@ public class BookServiceTest {
 		assertThat(created.getBody()).isEqualTo("Empty name is not allowed");
 	}
 
-	@Test
-	@DisplayName("Return error due to empty description")
-	@Order(4)
-	public void should_return_error_due_to_empty_description() {
+    @Test
+    @DisplayName("Return error due to empty description")
+    @Order(4)
+    void should_return_error_due_to_empty_description() {
 		request = new BookDTO(null, "Test book", "",
 				LocalDate.parse("25-07-2020", DateTimeFormatter.ofPattern("dd-MM-yyyy")));
 		BeanUtils.copyProperties(request, expectedSavedBook);
@@ -128,10 +128,10 @@ public class BookServiceTest {
 		assertThat(created.getBody()).isEqualTo("Empty description is not allowed");
 	}
 
-	@Test
-	@DisplayName("Return error due to empty release date")
-	@Order(5)
-	public void should_return_error_due_to_empty_release_date() {
+    @Test
+    @DisplayName("Return error due to empty release date")
+    @Order(5)
+    void should_return_error_due_to_empty_release_date() {
 		request = new BookDTO(null, "Test book", "Just some description",
 				null);
 		BeanUtils.copyProperties(request, expectedSavedBook);

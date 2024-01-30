@@ -6,5 +6,3 @@ spring:
         name: graalvm-connector
         sources:
          - name: ${KUBE_CONFIG_MAP_NAME}
-  application:
-    name: graalvm-connector

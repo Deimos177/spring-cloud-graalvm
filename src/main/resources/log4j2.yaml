@@ -1,0 +1,14 @@
+Configutation:
+  name: graalvm-connector
+  Appenders:
+    Console:
+      name: LogToConsole
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+  Loggers:
+      Root:
+        level: ${LOG_LEVEL}
+        AppenderRef:
+          - ref: LogToConsole
+status: warn

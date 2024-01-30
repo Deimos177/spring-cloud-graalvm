@@ -37,13 +37,24 @@ autoscaling:
 nodeSelector: {}
 tolerations: []
 affinity: {}
+env:
+  - name: DB_USERNAME
+    valueFrom:
+      secretKeyRef:
+        name: mysql-pass
+        key: user
+  - name: DB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: mysql-pass
+        key: password
+  - name: DB_URL
+    value: jdbc:mysql://mysql.mysql:3306/graalvm-jpa
 network:
   Apppath: /graalvm-connector
 properties:
   application.yml: |-
     spring:
-      application:
-        name: ${ APP_NAME }
       jpa:
         hibernate:
           ddl-auto: update
