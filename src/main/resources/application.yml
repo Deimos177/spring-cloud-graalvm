@@ -7,26 +7,26 @@ spring:
         enabled: false
         name: graalvm-connector
         sources:
-         - name: ${KUBE_CONFIG_MAP_NAME
-  datasource:
-    password: 123456
-    url: jdbc:mysql://172.18.0.2:3306/graalvm-example
-    username: user
-  jpa:
-    generate-ddl: true
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-  profiles:
-    active: dev
-springdoc:
-  swagger-ui:
-    path: /swagger-ui.html
-server:
-  servlet:
-    context-path: /graalvm-connector
-management:
-  endpoint:
-    health:
-      probes:
-        enabled: true
+         - name: ${KUBE_CONFIG_MAP_NAME}
+#   datasource:
+#     password: 123456
+#     url: jdbc:mysql://172.18.0.2:3306/graalvm-example
+#     username: user
+#   jpa:
+#     generate-ddl: true
+#     hibernate:
+#       ddl-auto: update
+#     show-sql: true
+#   profiles:
+#     active: dev
+# springdoc:
+#   swagger-ui:
+#     path: /swagger-ui.html
+# server:
+#   servlet:
+#     context-path: /graalvm-connector
+# management:
+#   endpoint:
+#     health:
+#       probes:
+#         enabled: true

@@ -18,7 +18,7 @@ spec:
       serviceAccountName: graalvm-connector
       containers:
         - name: graalvm-connector
-          image: marsdeimos/graalvm-connector:1.5
+          image: marsdeimos/spring-connector:1.1
           ports:
             - name: http
               containerPort: 8080
@@ -44,10 +44,14 @@ spec:
             httpGet:
               path: /graalvm-connector/actuator/health/liveness
               port: http
+            initialDelaySeconds: 60
+            failureThreshold: 3
           readinessProbe:
             httpGet:
               path: /graalvm-connector/actuator/health/readiness
               port: http
+            initialDelaySeconds: 60
+            failureThreshold: 3
           resources:
             requests:
               cpu: 10m
