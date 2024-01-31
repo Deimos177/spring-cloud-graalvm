@@ -145,4 +145,22 @@ class BookServiceTest {
 		assertThat(created.getStatusCode().is4xxClientError());
 		assertThat(created.getBody()).isEqualTo("Empty released date is not allowed");
 	}
+    
+    @Test
+    @DisplayName("Return error due to existent book")
+    @Order(6)
+    void should_return_error_due_to_existent_book() {
+    	request = new BookDTO(null, "Test book", "Just some description",
+				LocalDate.parse("25.07.2020", DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+		BeanUtils.copyProperties(request, expectedSavedBook);
+		expectedSavedBook.setUUID("0477fbe0-be46-4ee2-9b1f-0b6cc82672c1");
+
+		lenient().when(this.repository.findBookByName(request.getName())).thenReturn(expectedSavedBook);
+
+		ResponseEntity<Object> created = this.service.createBook(request);
+
+		assertThat(created).isNotNull();
+		assertThat(created.getStatusCode().is4xxClientError());
+		assertThat(created.getBody()).isEqualTo("Book already exists");
+	}
 }

@@ -1,6 +1,7 @@
 package br.com.deimos.service;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class BookService {
 		
 		if(nullFields != null)
 			return ResponseEntity.badRequest().body(nullFields);
+		
+		if(Objects.nonNull(repository.findBookByName(bookDto.getName())))
+			return ResponseEntity.badRequest().body("Book already exists");
 
 		bookToSave.setReleaseDate(LocalDate.of(bookDto.getReleaseDate().getYear(), bookDto.getReleaseDate().getMonth(),
 				bookDto.getReleaseDate().getDayOfMonth()));
