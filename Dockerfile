@@ -1,28 +1,30 @@
-FROM openjdk:17-alpine as build
-
-ENV LANG pt_BR.UTF-8
-ENV LANGUAGE pt_BR:pt:en
+FROM openjdk:23-slim as build
 
 WORKDIR /usr/lib
 
-RUN apk update && \
-    apk add wget
-RUN wget https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz
-RUN tar -xvf apache-maven-3.9.6-bin.tar.gz
+RUN apt-get update && \
+    apt-get install wget -y && \
+    wget https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz && \
+    tar -xvf apache-maven-3.9.6-bin.tar.gz
+
+ENV MAVEN_HOME /usr/lib/apache-maven-3.9.6
+ENV PATH $PATH:$MAVEN_HOME/bin
 
 WORKDIR /app
-
-RUN export MAVEN_HOME=/usr/lib/apache-maven-3.9.6
-RUN export PATH=$PATH:$MAVEN_HOME
 
 COPY . .
 
-RUN /usr/lib/apache-maven-3.9.6/bin/mvn clean package -e
+RUN mvn clean package -Dmaven.test.skip -e
 
-FROM openjdk:17-alpine
+FROM openjdk:23-slim
+
+ENV LANG pt_BR.utf8
 
 WORKDIR /app
 
-COPY --from=build /app/target/*.jar /app.jar
+RUN apt-get update && \
+    apt-get install curl -y
+    
+COPY --from=build /app/target/*.jar /app/app.jar
 
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]

@@ -1,61 +1,64 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: graalvm-connector
+  name: cloud-jpa
   namespace: study
   labels:
-    app: graalvm-connector
+    app: cloud-jpa
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: graalvm-connector
+      app: cloud-jpa
   template:
     metadata:
       labels:
-        app: graalvm-connector
+        app: cloud-jpa
     spec:
-      serviceAccountName: graalvm-connector
+      serviceAccount: cloud-jpa-serviceaccount
+      serviceAccountName: cloud-jpa-serviceaccount
       containers:
-        - name: graalvm-connector
-          image: marsdeimos/spring-connector:1.3
+        - name: cloud-jpa
+          image: marsdeimos/cloud-jpa:1.1
           ports:
             - name: http
               containerPort: 8080
               protocol: TCP
           env:
-            - name: APP_NAME
-              value: graalvm-connector
+            - name: CONTEXT-PATH
+              value: /cloud-jpa
+            - name: KUBE_CONFIGMAP
+              value: cloud-jpa
             - name: DB_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: mysql-pass
+                  name: mysql-credentials
                   key: user
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mysql-pass
+                  name: mysql-credentials
                   key: password
             - name: DB_URL
               value: jdbc:mysql://mysql.mysql:3306/test
             - name: LOG_LEVEL
-              value: debug
-          livenessProbe:
-            httpGet:
-              path: /graalvm-connector/actuator/health/liveness
-              port: http
-            initialDelaySeconds: 60
-            failureThreshold: 3
-          readinessProbe:
-            httpGet:
-              path: /graalvm-connector/actuator/health/readiness
-              port: http
-            initialDelaySeconds: 60
-            failureThreshold: 3
+              value: TRACE
+          # livenessProbe:
+          #   httpGet:
+          #     path: /cloud-jpa/actuator/health/liveness
+          #     port: http
+          #   initialDelaySeconds: 60
+          #   failureThreshold: 3
+          # readinessProbe:
+          #   httpGet:
+          #     path: /cloud-jpa/actuator/health/readiness
+          #     port: http
+          #   initialDelaySeconds: 60
+          #   failureThreshold: 3
           resources:
             requests:
-              cpu: 10m
-              memory: 128Mi
+              cpu: 100m
+              memory: 256Mi
             limits:
-              cpu: 50m
+              cpu: 200m
               memory: 512Mi

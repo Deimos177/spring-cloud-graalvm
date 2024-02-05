@@ -1,15 +1,15 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: graalvm-connector
+  name: cloud-jpa
   namespace: study
   labels:
-    app: graalvm-connector
+    app: cloud-jpa
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: graalvm-connector
+    name: cloud-jpa
   minReplicas: 1
   maxReplicas: 2
   metrics:
@@ -18,10 +18,10 @@ spec:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: {{ .Values.autoscaling.targetCPUUtilizationPercentage }}
+          averageUtilization: 80
     - type: Resource
       resource:
         name: memory
         target:
           type: Utilization
-          averageUtilization: {{ .Values.autoscaling.targetMemoryUtilizationPercentage }}
+          averageUtilization: 80

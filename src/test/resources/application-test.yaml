@@ -1,9 +1,12 @@
 spring:
   application:
-    name: graalvm-example
+    name: cloud-jpa
   cloud:
     config:
       enabled: false
+    kubernetes:
+      config:
+        enabled: false
   datasource:
     url: jdbc:h2:mem:mydb
     username: sa

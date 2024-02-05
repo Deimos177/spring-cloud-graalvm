@@ -1,13 +1,13 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: graalvm-connector
+  name: cloud-jpa
   namespace: study
 data:
   application.yml: |-
     spring:
       application:
-        name: graalvm-connector
+        name: cloud-jpa
       datasource:
         password: ${DB_PASSWORD}
         url: ${DB_URL}
@@ -24,7 +24,7 @@ data:
         path: /swagger-ui.html
     server:
       servlet:
-        context-path: /graalvm-connector
+        context-path: /cloud-jpa
     management:
       endpoint:
         health:
