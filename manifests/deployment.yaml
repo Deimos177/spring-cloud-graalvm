@@ -19,7 +19,7 @@ spec:
       serviceAccountName: cloud-jpa-serviceaccount
       containers:
         - name: cloud-jpa
-          image: marsdeimos/cloud-jpa:1.1
+          image: marsdeimos/cloud-jpa:1.6
           ports:
             - name: http
               containerPort: 8080
@@ -43,6 +43,10 @@ spec:
               value: jdbc:mysql://mysql.mysql:3306/test
             - name: LOG_LEVEL
               value: TRACE
+          volumeMounts:
+            - name:  config
+              mountPath:  /etc/config
+              readOnly: true
           # livenessProbe:
           #   httpGet:
           #     path: /cloud-jpa/actuator/health/liveness
@@ -62,3 +66,10 @@ spec:
             limits:
               cpu: 200m
               memory: 512Mi
+      volumes:
+        - name: config
+          configMap:
+            name: cloud-jpa
+            items:
+            - key: application.yml
+              path: application.yml

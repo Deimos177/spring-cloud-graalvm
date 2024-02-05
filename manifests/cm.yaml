@@ -18,7 +18,7 @@ data:
           ddl-auto: update
         show-sql: true
       profiles:
-        active: kubernetes
+        active: dev
     springdoc:
       swagger-ui:
         path: /swagger-ui.html
@@ -30,3 +30,9 @@ data:
         health:
           probes:
             enabled: true
+    logging:
+      level:
+        org:
+          springframework:
+            web: trace
+        root: trace

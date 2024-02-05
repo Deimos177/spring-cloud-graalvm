@@ -1,21 +1,12 @@
-logging:
-  level:
-    org:
-      springframework:
-        web: trace
-    root: trace
 spring:
-  application:
-    name: spring-kubernetes
   cloud:
     config:
       enabled: false
     kubernetes:
       config:
         enabled: true
-        name: spring-kubernetes
-        sources:
-         - name: ${KUBE_CONFIGMAP}
-server:
-  servlet:
-    context-path: ${CONTEXT-PATH}
+        name: ${KUBE_CONFIGMAP}
+        paths:
+        - /etc/config/application.yml
+  main:
+    allow-bean-definition-overriding: true
