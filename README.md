@@ -10,6 +10,8 @@ kubernetes-cli also now as kubectl. <br>
 3° Run: <br>
 ```
 kubectl create ns study
+kubectl create ns mysql
+kubectl apply -f manifests/mysql.yaml -n mysql
 kubectl apply -f manifests/service.yaml -n study
 kubectl apply -f manifests/serviceaccount.yaml -n study
 kubectl apply -f manifests/rolebinding.yaml -n study
