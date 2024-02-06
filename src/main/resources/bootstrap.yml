@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: cloud-jpa
+  cloud:
+    kubernetes:
+      config:
+        enabled: true
+      reload:
+        enabled: true
+        monitoring-config-maps: true
+        strategy: refresh
+        mode: event

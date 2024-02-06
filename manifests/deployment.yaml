@@ -19,7 +19,7 @@ spec:
       serviceAccountName: cloud-jpa-serviceaccount
       containers:
         - name: cloud-jpa
-          image: marsdeimos/cloud-jpa:1.6
+          image: marsdeimos/cloud-jpa:1.7
           ports:
             - name: http
               containerPort: 8080
@@ -29,7 +29,7 @@ spec:
               value: /cloud-jpa
             - name: KUBE_CONFIGMAP
               value: cloud-jpa
-            - name: DB_USERNAME
+            - name: DB_USER
               valueFrom:
                 secretKeyRef:
                   name: mysql-credentials

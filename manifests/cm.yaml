@@ -8,6 +8,10 @@ data:
     spring:
       application:
         name: cloud-jpa
+      cloud:
+        kubernetes:
+          reload:
+            enabled: true
       datasource:
         password: ${DB_PASSWORD}
         url: ${DB_URL}
@@ -18,7 +22,7 @@ data:
           ddl-auto: update
         show-sql: true
       profiles:
-        active: dev
+        active: kubernetes
     springdoc:
       swagger-ui:
         path: /swagger-ui.html

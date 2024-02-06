@@ -8,10 +8,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EnableJpaRepositories(basePackages = "br.com.deimos")
 @EntityScan(basePackages = "br.com.deimos")
-public class App {
+public class CloudJpa {
 
 	public static void main(String[] args) {
-		SpringApplication.run(App.class, args);
+		SpringApplication.run(CloudJpa.class, args);
 	}
 
 }
