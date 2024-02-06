@@ -10,12 +10,12 @@ kubernetes-cli also now as kubectl. <br>
 3° Run: <br>
 ```
 kubectl create ns study
-kubectl apply -f manifests/service.yaml
-kubectl apply -f manifests/serviceaccount.yaml
-kubectl apply -f manifests/rolebinding.yaml
-kubectl apply -f manifests/role.yaml
-kubectl apply -f manifests/cm.yaml
-kubectl apply -f manifests/deployment.yaml
+kubectl apply -f manifests/service.yaml -n study
+kubectl apply -f manifests/serviceaccount.yaml -n study
+kubectl apply -f manifests/rolebinding.yaml -n study
+kubectl apply -f manifests/role.yaml -n study
+kubectl apply -f manifests/cm.yaml -n study
+kubectl apply -f manifests/deployment.yaml -n study
 ```
 
 # If you want to modify the project
