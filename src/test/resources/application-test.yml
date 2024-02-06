@@ -1,9 +1,9 @@
 spring:
+  profiles:
+    active: test
   application:
     name: cloud-jpa
   cloud:
-    config:
-      enabled: false
     kubernetes:
       config:
         enabled: false
@@ -20,4 +20,5 @@ springdoc:
         path: /swagger-ui.html
 server:
   servlet:
-    context-path: /hello
+    context-path: /cloud-jpa
+  port: 8080

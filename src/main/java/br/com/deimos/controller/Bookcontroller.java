@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.deimos.dto.BookDTO;
+import br.com.deimos.dto.BookRecordDTO;
 import br.com.deimos.service.BookService;
 
 @RestController
@@ -18,7 +18,7 @@ public class Bookcontroller {
 	private BookService service;
 
 	@PostMapping
-	ResponseEntity<Object> createBook(@RequestBody BookDTO dto) {
+	ResponseEntity<Object> createBook(@RequestBody BookRecordDTO dto) {
 		return service.createBook(dto);
 	}
 }
