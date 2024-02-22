@@ -7,7 +7,7 @@ data:
   application.yml: |-
     spring:
       application:
-        name: cloud-jpa
+        name: toolkit-jpa
       cloud:
         kubernetes:
           reload:
@@ -28,7 +28,7 @@ data:
         path: /swagger-ui.html
     server:
       servlet:
-        context-path: /cloud-jpa
+        context-path: /toolkit-jpa
     management:
       endpoint:
         health:
@@ -38,5 +38,5 @@ data:
       level:
         org:
           springframework:
-            web: trace
-        root: trace
+            web: info
+        root: info

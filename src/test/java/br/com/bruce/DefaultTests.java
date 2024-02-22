@@ -1,4 +1,4 @@
-package br.com.deimos;
+package br.com.bruce;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

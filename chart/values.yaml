@@ -1,11 +1,11 @@
 replicaCount: 1
 image:
-  repository: marsdeimos/graalvm-connector
+  repository: marsdeimos/cloud-jpa
   pullPolicy: IfNotPresent
-  tag: "1.0"
+  tag: "2.1"
 imagePullSecrets: []
 serviceAccount:
-  create: true
+  create: false
   annotations: {}
   name: ""
 podAnnotations: {}
@@ -26,50 +26,63 @@ ingress:
   tls: []
 resources:
   requests:
-    cpu: 10m
-    memory: 128Mi
+    cpu: 150m
+    memory: 512Mi
+  limits:
+    cpu: 300m
+    memory: 1024Mi
 autoscaling:
   enabled: true
   minReplicas: 1
-  maxReplicas: 2
+  maxReplicas: 5
   targetCPUUtilizationPercentage: 80
   targetMemoryUtilizationPercentage: 80
 nodeSelector: {}
 tolerations: []
 affinity: {}
 env:
-  - name: DB_USERNAME
+  - name: DB_USER
     valueFrom:
       secretKeyRef:
-        name: mysql-pass
+        name: mysql-credentials
         key: user
   - name: DB_PASSWORD
     valueFrom:
       secretKeyRef:
-        name: mysql-pass
+        name: mysql-credentials
         key: password
   - name: DB_URL
-    value: jdbc:mysql://mysql.mysql:3306/graalvm-jpa
+    value: jdbc:mysql://mysql.mysql:3306/test
+  - name: LOG_LEVEL
+    value: INFO
 network:
-  Apppath: /graalvm-connector
+  Apppath: /toolkit-sample
 properties:
   application.yml: |-
     spring:
+      application:
+        name: toolkit-sample
+      cloud:
+        kubernetes:
+          reload:
+            enabled: true
+      datasource:
+        password: ${DB_PASSWORD}
+        url: ${DB_URL}
+        username: ${DB_USER}
       jpa:
+        generate-ddl: true
         hibernate:
           ddl-auto: update
         show-sql: true
-      datasource:
-        url: ${DB_URL}
-        username: ${DB_USERNAME}
-        password: ${DB_PASSWORD}
-        driver-class-name: com.mysql.cj.jdbc.Driver
+      profiles:
+        active: kubernetes
     springdoc:
       swagger-ui:
         path: /swagger-ui.html
     server:
       servlet:
-        context-path: /graalvm-connector
+        context-path: /toolkit-sample
     management:
       endpoint:
         health:

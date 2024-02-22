@@ -19,7 +19,7 @@ spec:
       serviceAccountName: cloud-jpa-serviceaccount
       containers:
         - name: cloud-jpa
-          image: marsdeimos/cloud-jpa:1.7
+          image: marsdeimos/cloud-jpa:1.8
           ports:
             - name: http
               containerPort: 8080
@@ -27,8 +27,6 @@ spec:
           env:
             - name: CONTEXT-PATH
               value: /cloud-jpa
-            - name: KUBE_CONFIGMAP
-              value: cloud-jpa
             - name: DB_USER
               valueFrom:
                 secretKeyRef:
@@ -42,34 +40,23 @@ spec:
             - name: DB_URL
               value: jdbc:mysql://mysql.mysql:3306/test
             - name: LOG_LEVEL
-              value: TRACE
-          volumeMounts:
-            - name:  config
-              mountPath:  /etc/config
-              readOnly: true
-          # livenessProbe:
-          #   httpGet:
-          #     path: /cloud-jpa/actuator/health/liveness
-          #     port: http
-          #   initialDelaySeconds: 60
-          #   failureThreshold: 3
-          # readinessProbe:
-          #   httpGet:
-          #     path: /cloud-jpa/actuator/health/readiness
-          #     port: http
-          #   initialDelaySeconds: 60
-          #   failureThreshold: 3
+              value: INFO
+          livenessProbe:
+            httpGet:
+              path: /toolkit-jpa/actuator/health/liveness
+              port: http
+            initialDelaySeconds: 80
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /toolkit-jpa/actuator/health/readiness
+              port: http
+            initialDelaySeconds: 80
+            failureThreshold: 3
           resources:
             requests:
-              cpu: 100m
+              cpu: 150m
               memory: 256Mi
             limits:
-              cpu: 200m
+              cpu: 300m
               memory: 512Mi
-      volumes:
-        - name: config
-          configMap:
-            name: cloud-jpa
-            items:
-            - key: application.yml
-              path: application.yml

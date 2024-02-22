@@ -21,29 +21,42 @@ spec:
       labels:
         app: {{ .Release.Name }}
     spec:
-      serviceAccountName: {{ .Release.Name }}
+      serviceAccount: {{ .Release.Name }}-serviceaccount
+      serviceAccountName: {{ .Release.Name }}-serviceaccount
       containers:
         - name: {{ .Release.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.version | default .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: {{ .Values.service.port }}
               protocol: TCP
           env:
             - name: APP_NAME
               value: {{ .Release.Name }}
             {{- toYaml .Values.env | nindent 12 }}
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           livenessProbe:
             httpGet:
               path: {{ .Values.network.Apppath}}/actuator/health/liveness
               port: http
+            initialDelaySeconds: 120
+            failureThreshold: 3
           readinessProbe:
             httpGet:
               path: {{ .Values.network.Apppath}}/actuator/health/readiness
               port: http
+            initialDelaySeconds: 120
+            failureThreshold: 3
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.volumes }}
+      volumes:
+        {{- toYaml . | nindent 6 }}
+      {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

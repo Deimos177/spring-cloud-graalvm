@@ -1,23 +1,22 @@
 spring:
-  profiles:
-    active: test
   application:
     name: cloud-jpa
-  cloud:
-    kubernetes:
-      config:
-        enabled: false
   datasource:
-    url: jdbc:h2:mem:mydb
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
     username: sa
     password: password
     driverClassName: org.h2.Driver
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
   h2:
     console:
       enabled: true
 springdoc:
-      swagger-ui:
-        path: /swagger-ui.html
+  swagger-ui:
+    path: /swagger-ui.html
 server:
   servlet:
     context-path: /cloud-jpa

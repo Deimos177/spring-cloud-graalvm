@@ -1,4 +1,4 @@
-package br.com.deimos.entity;
+package br.com.bruce.entity;
 
 import java.time.LocalDateTime;
 
@@ -13,19 +13,21 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @Entity
-@Table
+@Table(name = "toolkit")
 @RequiredArgsConstructor
 @Data
 @AllArgsConstructor
-public class Book {
+public class ToolkitEntity {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	private String UUID;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	@Column(nullable = false)
 	private String name;
 	@Column(nullable = false)
-	private String shortDescription;
+	private String description;
 	@Column(nullable = false)
 	private LocalDateTime releaseDate;
+	@Column(nullable = false)
+	private Boolean active;
 }
