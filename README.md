@@ -2,6 +2,7 @@
 Docker. <br>
 minikube. <br>
 kubernetes-cli also now as kubectl. <br>
+Helm <br>
 <br>
 
 # Steps to run this project: <br>
@@ -12,12 +13,7 @@ kubernetes-cli also now as kubectl. <br>
 kubectl create ns study
 kubectl create ns mysql
 kubectl apply -f manifests/mysql.yaml -n mysql
-kubectl apply -f manifests/service.yaml -n study
-kubectl apply -f manifests/serviceaccount.yaml -n study
-kubectl apply -f manifests/rolebinding.yaml -n study
-kubectl apply -f manifests/role.yaml -n study
-kubectl apply -f manifests/cm.yaml -n study
-kubectl apply -f manifests/deployment.yaml -n study
+helm upgrade --install -f .\chart\values.yaml toolkit-sample .\chart\ -n study --atomic --debug --wait --timeout 5m
 ```
 
 # If you want to modify the project
