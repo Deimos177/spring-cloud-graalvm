@@ -1,4 +1,4 @@
-FROM container-registry.oracle.com/java/openjdk:21.0.2-oraclelinux8 as build
+FROM container-registry-saopaulo.oracle.com/java/openjdk:21-oraclelinux8 as build
 
 WORKDIR /usr/lib
 
@@ -16,7 +16,7 @@ COPY . .
 
 RUN mvn clean package
 
-FROM container-registry.oracle.com/java/openjdk:21.0.2-oraclelinux8
+FROM container-registry-saopaulo.oracle.com/java/openjdk:21-oraclelinux8
 
 RUN yum update && \
     yum install -y glibc-langpack-pt && \
