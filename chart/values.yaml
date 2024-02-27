@@ -73,11 +73,8 @@ properties:
           minimum-idle: 1
           maximum-pool-size: 10
           idle-timeout: 30000
-          max-lifetime: 1000
       jpa:
-        generate-ddl: true
-        hibernate:
-          ddl-auto: update
+        open-in-view: false
       profiles:
         active: kubernetes
     springdoc:
