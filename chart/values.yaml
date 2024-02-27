@@ -2,7 +2,7 @@ replicaCount: 1
 image:
   repository: marsdeimos/cloud-jpa
   pullPolicy: IfNotPresent
-  tag: "2.3"
+  tag: "2.4"
 imagePullSecrets: []
 serviceAccount:
   create: false
@@ -27,10 +27,10 @@ ingress:
 resources:
   requests:
     cpu: 150m
-    memory: 512Mi
+    memory: 640Mi
   limits:
     cpu: 300m
-    memory: 1024Mi
+    memory: 1280Mi
 autoscaling:
   enabled: true
   minReplicas: 1
