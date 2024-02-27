@@ -1,29 +1,4 @@
 apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: mysql-pv-volume
-  labels:
-    type: local
-spec:
-  capacity:
-    storage: 5Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "E:\\k8s\\storage"
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mysql-pv-claim
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 20Gi
----
-apiVersion: v1
 kind: Service
 metadata:
   name: mysql
@@ -61,9 +36,8 @@ spec:
         - containerPort: 3306
           name: mysql
         volumeMounts:
-        - name: mysql-persistent-storage
+        - name: temp-vol
           mountPath: /var/lib/mysql
       volumes:
-      - name: mysql-persistent-storage
-        persistentVolumeClaim:
-          claimName: mysql-pv-claim
+      - name: temp-vol
+        emptyDir: {}
