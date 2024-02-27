@@ -3,4 +3,4 @@ name: toolkit-sample
 description: A for chart graalvm-connector
 type: application
 version: 1.0.0
-appVersion: "2.2"
+appVersion: "2.3"
