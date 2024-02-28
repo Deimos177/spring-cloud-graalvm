@@ -32,7 +32,8 @@ public class LogServiceImpl implements LogService {
 				log.info("Request Body        : \n{}", mapper.writerWithDefaultPrettyPrinter().writeValueAsString(body));
 			
 			if (request.getMethod().toString().equalsIgnoreCase("get"))
-				log.info("Request Params      : {}", paramsMapBuilder(request));
+				if(!paramsMapBuilder(request).isEmpty())
+				  log.info("Request Params      : {}", paramsMapBuilder(request));
 			log.info("――――――――――――――――――――――――――request end――――――――――――――――――――――――――――――――――――――――――――――――");
 		} catch (Exception e) {
 			e.printStackTrace();
