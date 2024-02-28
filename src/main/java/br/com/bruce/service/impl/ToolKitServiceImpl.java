@@ -17,12 +17,8 @@ import br.com.bruce.repository.ToolkitRepository;
 import br.com.bruce.service.ToolKitService;
 import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.InternalServerErrorException;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
-@AllArgsConstructor
 public class ToolKitServiceImpl implements ToolKitService {
 
 	@Autowired

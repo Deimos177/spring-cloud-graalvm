@@ -17,6 +17,7 @@ import br.com.bruce.dto.ToolKitUpdateRequestRecordDto;
 import br.com.bruce.dto.ToolkitUpdateDto;
 import br.com.bruce.service.ToolKitService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 
 @RestController
 @RequestMapping("/toolkit")
@@ -37,14 +38,14 @@ public class ToolkitSampleController {
 	}
 
 	@GetMapping("/{name}")
-	ResponseEntity<ToolKitRecordDTO> findEntityByName(@PathVariable(name = "name") String name) {
+	ResponseEntity<ToolKitRecordDTO> findEntityByName(@Valid @NotBlank @PathVariable(name = "name") String name) {
 
 		return service.findEntityByName(name);
 	}
 
 	@PatchMapping("/{name}")
 	ResponseEntity<Object> updateEntity(@RequestBody @Valid ToolKitUpdateRequestRecordDto requestDto,
-			@PathVariable(name = "name") String Oldname) {
+			@NotBlank @PathVariable(name = "name") String Oldname) {
 
 		return service.updateEntity(
 				new ToolkitUpdateDto(Oldname, requestDto.newName(), requestDto.description(), requestDto.active()));

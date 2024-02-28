@@ -43,13 +43,13 @@ spec:
             httpGet:
               path: {{ .Values.network.Apppath}}/actuator/health/liveness
               port: http
-            initialDelaySeconds: 120
+            initialDelaySeconds: 60
             failureThreshold: 3
           readinessProbe:
             httpGet:
               path: {{ .Values.network.Apppath}}/actuator/health/readiness
               port: http
-            initialDelaySeconds: 120
+            initialDelaySeconds: 60
             failureThreshold: 3
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

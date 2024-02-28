@@ -14,9 +14,9 @@ import lombok.RequiredArgsConstructor;
 
 @Entity
 @Table(name = "toolkit")
-@RequiredArgsConstructor
 @Data
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class ToolkitEntity {
 	
 	@Id
