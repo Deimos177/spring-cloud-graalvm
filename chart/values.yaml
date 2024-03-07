@@ -2,7 +2,7 @@ replicaCount: 1
 image:
   repository: marsdeimos/cloud-jpa
   pullPolicy: IfNotPresent
-  tag: "2.9.1"
+  tag: "2.9.2"
 imagePullSecrets: []
 podAnnotations: {}
 service:
