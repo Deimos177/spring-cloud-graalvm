@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: toolkit-sample
+  datasource:
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/toolkit
+    username: root
+    hikari:
+      connection-timeout: 20000
+      minimum-idle: 1
+      maximum-pool-size: 10
+      idle-timeout: 30000
+  jpa:
+    open-in-view: false
+  profiles:
+    active: kubernetes
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+server:
+  servlet:
+    context-path: /toolkit-sample
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+otel:
+  instrumentation:
+    logback-appender:
+      experimental-log-attributes: true
+      experimental:
+        capture-marker-attribute: true
+  resource:
+    attributes:
+      environment: local
+  exporter:
+    otlp:
+      endpoint: http://127.0.0.1:4318
