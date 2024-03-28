@@ -21,19 +21,7 @@ server:
   servlet:
     context-path: /toolkit-sample
 management:
-  endpoint:
-    health:
-      probes:
-        enabled: true
-otel:
-  instrumentation:
-    logback-appender:
-      experimental-log-attributes: true
-      experimental:
-        capture-marker-attribute: true
-  resource:
-    attributes:
-      environment: local
-  exporter:
-    otlp:
-      endpoint: http://127.0.0.1:4318
+  endpoints:
+    web:
+      exposure:
+        include: health, metrics, prometheus
